@@ -5,27 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XMLHttpRequest Object</title>
+    <style>
+        button {
+            border: 0;
+            border-radius: 1.2rem;
+            background: #1fa3ec;
+            color: #faffff;
+            line-height: 2.4rem;
+            font-size: 1.2rem;
+            width: 250px;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #0e70a4;
+        }
+        
+        #demo {
+            text-align: center;
+            font-size: 1.5rem
+        }
+    </style>
 </head>
 
 <body>
+
     <h2>Using the XMLHttpRequest Object</h2>
 
-    <div id="demo">
-        <button type="button" onclick="loadXMLDoc()">Change Content</button>
-    </div>
+    <p id="demo">ON</p>
+    <button onclick="myFunction('&o=1');">Toggle</button>
+
 
     <script>
-        function loadXMLDoc() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
+        function myFunction(param) {
+
+            var x = new XMLHttpRequest();
+            x.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("demo").innerHTML =
-                        this.responseText;
+                    console.log(x.responseText);
+                    state = ih('demo');
+                    console.log(ih('demo'));
+                    //var state = x.responseText.replace('ON', 'OFF')
+                    state = document.getElementById("demo").innerHTML;
                 }
             };
-            xhttp.open("POST", "info.txt", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("fname=Henry&lname=Ford");
+            x.open("GET", '.?m=1' + param, true);
+            x.send();
+
+        }
+
+        function ge(s) {
+            return document.getElementById(s);
+        }
+
+        function ih(s) {
+            return document.getElementById(s).innerHTML;
+        }
+
+        function qs(s) {
+            return document.querySelector(s);
         }
     </script>
 </body>
