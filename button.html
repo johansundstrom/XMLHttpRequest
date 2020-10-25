@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #myButton {
+            width: 100px;
+            height: 30px;
+            background-color: green;
+            color: white;
+        }
+    </style>
+    <script type="text/javascript">
+        var myState = true;
+
+
+        function button_event() {
+            //console.log(myState);
+            switch (myState) {
+                case false:
+                    document.getElementById("myButton").innerHTML = "Start";
+                    document.getElementById("myButton").style.backgroundColor = "green";
+                    xhr({ "output": "1" });
+                    break;
+                case true:
+                    document.getElementById("myButton").innerHTML = "Stop";
+                    document.getElementById("myButton").style.backgroundColor = "red";
+                    xhr({ "output": "0" });
+                    break;
+            }
+            myState = !myState;
+        }
+
+        function xhr(param) {
+            var req = new XMLHttpRequest();
+            req.open("POST", "http://echo.jsontest.com/key/value/output/" + param, true);
+            req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            req.send(JSON.stringify(param));
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <button id="myButton" onclick="button_event()">Start</button>
+</body>
+
+</html>
